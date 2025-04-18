@@ -8,8 +8,9 @@ let pages = [
   { url: '', title: 'Home' },
   { url: 'contact/', title: 'Contact' },
   { url: 'projects/', title: 'Projects' },
-  { url: 'https://github.com/vdanielb', title: 'GitHub' },
-  { url: 'resume/', title: 'Resume' },
+  { url: 'cv.html', title: 'CV' },
+  { url: 'https://github.com/netflyx', title: 'GitHub' },
+  
 ];
 
 let nav = document.createElement('nav');
@@ -17,7 +18,7 @@ document.body.prepend(nav);
 
 const BASE_PATH = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
   ? "/"                  // Local server
-  : "/html-practice/";         // GitHub Pages repo name
+  : "/portfolio/";       // GitHub Pages repo name
 
 for (let p of pages) {
   let url = p.url;
