@@ -8,7 +8,6 @@ html {
 }
 
 
-
 body {
     font: 100%/1.5 system-ui;
     margin-inline: max(1em, (100% - 100ch) / 2);
@@ -102,7 +101,16 @@ h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
 }
 
-
+.color-scheme {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  font-size: 0.9em;
+  background: oklch(98% 0.01 0 / 80%);
+  padding: 0.5em 1em;
+  border-radius: 6px;
+  z-index: 1000;
+}
 
 
 

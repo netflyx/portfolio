@@ -113,4 +113,14 @@ body {
     text-decoration: underline;
   }
 
+  .color-scheme {
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    font-size: 0.9em;
+    background: oklch(98% 0.01 0 / 80%);
+    padding: 0.5em 1em;
+    border-radius: 6px;
+    z-index: 1000;
+  }
   

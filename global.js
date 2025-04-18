@@ -40,3 +40,24 @@ for (let p of pages) {
     a.target = '_blank';
   } 
 }
+
+const select = document.querySelector("#color-scheme-select");
+const html = document.documentElement;
+
+const savedScheme = localStorage.getItem("color-scheme") || "auto";
+applyColorScheme(savedScheme);
+select.value = savedScheme;
+
+select.addEventListener("change", () => {
+  const newScheme = select.value;
+  applyColorScheme(newScheme);
+  localStorage.setItem("color-scheme", newScheme);
+});
+
+function applyColorScheme(scheme) {
+  if (scheme === "auto") {
+    html.removeAttribute("style");
+  } else {
+    html.style.colorScheme = scheme;
+  }
+}
