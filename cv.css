@@ -112,3 +112,20 @@ p a:hover {
   z-index: 1000;
   border: 1px solid var(--border-color);
 }
+
+.divider {
+  height: 3px;
+  width: 100%;
+  margin: 3em 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-accent),
+    transparent
+  );
+  border: none;
+}
+
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
