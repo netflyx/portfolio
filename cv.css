@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --color-accent: oklch(65% 50% 0);
   accent-color: var(--color-accent);
 }
@@ -129,4 +129,137 @@ p a:hover {
 
 * {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+} */
+
+
+:root {
+  --color-accent: oklch(65% 50% 0);
+  --border-color: oklch(50% 10% 200 / 40%);
+  accent-color: var(--color-accent);
+}
+
+html {
+  color-scheme: light dark;
+}
+
+* {
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  font-size: 100%;
+  line-height: 1.5;
+  margin-inline: max(1em, (100% - 100ch) / 2);
+  padding: 2em;
+  background-color: canvas;
+  color: canvastext;
+}
+
+/* Navigation bar (if needed) */
+nav {
+  display: flex;
+  margin-bottom: 1em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+nav ul, nav li {
+  display: contents;
+}
+
+nav a {
+  flex: 1;
+  text-align: center;
+  padding: 0.5em;
+  text-decoration: none;
+  color: inherit;
+}
+
+nav a.current {
+  font-weight: bold;
+  border-bottom: 3px solid var(--border-color);
+}
+
+nav a:hover {
+  border-bottom: 0.4em solid var(--color-accent);
+  padding-bottom: 0.2em;
+  background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
+}
+
+/* Headers */
+h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5em;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.25em;
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.25em;
+  color: oklch(55% 30% 250);
+}
+
+/* Layout */
+section {
+  margin-bottom: 2em;
+}
+
+article {
+  margin-bottom: 1.5em;
+}
+
+ul {
+  padding-left: 1.25em;
+  margin-top: 0.25em;
+}
+
+ul li {
+  margin-bottom: 0.5em;
+}
+
+time {
+  font-style: italic;
+  color: #666;
+  font-size: 0.95em;
+}
+
+/* Links */
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+/* Color Scheme Dropdown */
+.color-scheme {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  font-size: 0.9em;
+  background: canvas;
+  padding: 0.5em 1em;
+  border-radius: 6px;
+  z-index: 1000;
+  border: 1px solid var(--border-color);
+}
+
+/* Section Divider */
+.divider {
+  height: 3px;
+  width: 100%;
+  margin: 3em 0;
+  background: linear-gradient(to right, transparent, var(--color-accent), transparent);
+  border: none;
+  opacity: 0.7;
 }
