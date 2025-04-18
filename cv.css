@@ -2,18 +2,20 @@
     --color-accent: oklch(65% 50% 0);
     accent-color: var(--color-accent);
   }
+
+  html {
+    color-scheme: light dark;
+  }
   
-body {
-      font: 100%/1.5 system-ui;
-      margin-inline: max(1em, (100% - 100ch) / 2);
-      padding: 2em;
-      background-color: oklch(98% 0.005 240);
-      color: #222;
-    }
+  body {
+    font-family: system-ui, sans-serif;
+    line-height: 1.6;
+    padding: 2em;
+    color: canvastext;
+    background-color: canvas;
+  }
   
-html {
-  color-scheme: light dark;
-}
+
 
 body {
     font: 100%/1.5 system-ui;
@@ -71,7 +73,7 @@ body {
     font-size: 2rem;
     margin-top: 2em;
     margin-bottom: 0.5em;
-    border-bottom: 2px solid oklch(80% 3% 200);
+    border-bottom: 2px solid var(--border-color);
     padding-bottom: 0.25em;
   }
   
@@ -118,9 +120,11 @@ body {
     top: 1em;
     right: 1em;
     font-size: 0.9em;
-    background: oklch(98% 0.01 0 / 80%);
+    background: canvas;
     padding: 0.5em 1em;
     border-radius: 6px;
     z-index: 1000;
+    border: 1px solid var(--border-color); /* optional for separation */
   }
+  
   

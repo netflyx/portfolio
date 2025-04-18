@@ -106,11 +106,13 @@ h1, h2, h3, h4, h5, h6 {
   top: 1em;
   right: 1em;
   font-size: 0.9em;
-  background: oklch(98% 0.01 0 / 80%);
+  background: canvas;
   padding: 0.5em 1em;
   border-radius: 6px;
   z-index: 1000;
+  border: 1px solid var(--border-color); /* optional for separation */
 }
+
 
 
 
