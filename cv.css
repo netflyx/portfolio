@@ -120,11 +120,12 @@ p a:hover {
   background: linear-gradient(
     to right,
     transparent,
-    var(--color-accent),
+    oklch(65% 50% 0 / 80%),
     transparent
   );
   border: none;
 }
+
 
 * {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
