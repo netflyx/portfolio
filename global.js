@@ -10,7 +10,6 @@ let pages = [
   { url: 'projects/', title: 'Projects' },
   { url: 'cv.html', title: 'CV' },
   { url: 'https://github.com/netflyx', title: 'GitHub' },
-  
 ];
 
 let nav = document.createElement('nav');
