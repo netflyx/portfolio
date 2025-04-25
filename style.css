@@ -112,6 +112,16 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid var(--border-color);
 }
 
+.projects article {
+  margin-bottom: 2em;
+}
+
+.projects img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5em;
+}
+
 
 
 
