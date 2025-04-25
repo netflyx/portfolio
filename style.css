@@ -133,6 +133,38 @@ h1, h2, h3, h4, h5, h6 {
   gap: 2em;
 }
 
+#profile-stats {
+  margin-top: 2em;
+  padding: 1.5em;
+  background-color: color-mix(in oklch, canvas 95%, var(--color-accent));
+  border-radius: 0.75em;
+  box-shadow: 0 4px 8px oklch(80% 3% 200 / 30%);
+}
+
+#profile-stats h2 {
+  margin-bottom: 1em;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+#profile-stats dl {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  text-align: center;
+  gap: 0.5em 1em;
+}
+
+#profile-stats dt {
+  font-weight: bold;
+  grid-row: 1;
+}
+
+#profile-stats dd {
+  margin: 0;
+  grid-row: 2;
+}
+
+
 
 
 
