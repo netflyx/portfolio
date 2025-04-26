@@ -97,33 +97,4 @@ export async function fetchGitHubData(username) {
   return fetchJSON(`https://api.github.com/users/${netflyx}`);
 }
 
-document.body.insertAdjacentHTML(
-  'afterbegin',
-  `
-  <label class="color-scheme">
-    Theme:
-    <select id="theme-selector">
-      <option value="light dark">Automatic</option>
-      <option value="light">Light</option>
-      <option value="dark">Dark</option>
-    </select>
-  </label>
-  `
-);
-
-// Get reference to the select element
-let themeSelect = document.getElementById('theme-selector');
-
-if ("colorScheme" in localStorage) {
-  let savedScheme = localStorage.colorScheme;
-  document.documentElement.style.setProperty('color-scheme', savedScheme);
-  themeSelect.value = savedScheme;
-}
-
-// When the user changes the dropdown, apply and save the new theme
-themeSelect.addEventListener('input', function(event) {
-  let newScheme = event.target.value;
-  document.documentElement.style.setProperty('color-scheme', newScheme);
-  localStorage.colorScheme = newScheme;
-});  
 
