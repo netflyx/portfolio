@@ -82,7 +82,7 @@ button {
   margin-top: 2em;
 }
 
-/* .projects article {
+.projects article {
   background-color: oklch(98% 0.005 240 / 80%);
   border: 1px solid oklch(80% 3% 200 / 30%);
   border-radius: 8px;
@@ -112,7 +112,28 @@ button {
 .projects p {
   font-size: 1rem;
   color: canvastext;
-} */
+}
+
+
+h1 {
+  font-size: 400%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.color-scheme {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  font-size: 0.9em;
+  padding: 0.5em 1em;
+  border-radius: 6px;
+  z-index: 1000;
+  border: 1px solid var(--border-color);
+}
 
 
 
