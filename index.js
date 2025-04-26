@@ -10,7 +10,7 @@ async function initLatestProjects() {
     }
     renderProjects(latestProjects, projectsContainer, 'h2');
   
-    const githubData = await fetchGitHubData('netfllyx');
+    const githubData = await fetchGitHubData('netflyx');
     const profileStats = document.querySelector('#profile-stats');
     if (profileStats) {
       profileStats.innerHTML = `
