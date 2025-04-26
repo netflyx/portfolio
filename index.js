@@ -15,9 +15,9 @@ async function initLatestProjects() {
     if (profileStats) {
       profileStats.innerHTML = `
           <dl>
-            <dt>Public Repos:</dt><dd>${githubData.public_repos}</dd>
-            <dt>Followers:</dt><dd>${githubData.followers}</dd>
-            <dt>Following:</dt><dd>${githubData.following}</dd>
+            <dd>Public Repos:${githubData.public_repos}</dd>
+            <dd>Followers:${githubData.followers}</dd>
+            <dd>Following:${githubData.following}</dd>
           </dl>
       `;
     }
