@@ -1,9 +1,11 @@
 [
 	{
-		"title": "Lorem ipsum dolor sit.",
+		"title": "Personal Portfolio & Resume Site",
+		"year": "2025",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
-		"description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
-	},
+		"description": "Designed and deployed a responsive personal website to showcase my resume, projects, and GitHub activity. Built with HTML, CSS Grid, JavaScript modules, and dynamic data from GitHub’s API."
+	  }
+	  ,
 	{
 		"title": "Architecto minima sed omnis?",
 		"image": "https://vis-society.github.io/labs/2/images/empty.svg",
