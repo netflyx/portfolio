@@ -5,7 +5,7 @@ async function initLatestProjects() {
     const latestProjects = projects.slice(0, 3);
     const projectsContainer = document.querySelector('.projects');
     if (!projectsContainer) {
-        console.error('No .projects container found on the homepage.');
+        onsole.error('No .projects container found on the homepage.');
         return;
     }
     renderProjects(latestProjects, projectsContainer, 'h2');
