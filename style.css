@@ -82,7 +82,7 @@ button {
   margin-top: 2em;
 }
 
-.projects article {
+/* .projects article {
   background-color: oklch(98% 0.005 240 / 80%);
   border: 1px solid oklch(80% 3% 200 / 30%);
   border-radius: 8px;
@@ -112,61 +112,7 @@ button {
 .projects p {
   font-size: 1rem;
   color: canvastext;
-}
-
-:root {
-  --color-accent: oklch(65% 50% 0);
-  --border-color: oklch(50% 10% 200 / 40%);
-  accent-color: var(--color-accent);
-}
-
-html {
-  color-scheme: light dark;
-}
-
-* {
-  box-sizing: border-box;
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
-body {
-  font-family: system-ui, sans-serif;
-  font-size: 100%;
-  line-height: 1.5;
-  margin-inline: max(1em, (100% - 100ch) / 2);
-  padding: 2em;
-  background-color: canvas;
-  color: canvastext;
-}
-
-nav {
-  display: flex;
-  margin-bottom: 1em;
-  border-bottom: 1px solid var(--border-color);
-}
-
-nav ul, nav li {
-  display: contents;
-}
-
-nav a {
-  flex: 1;
-  text-align: center;
-  padding: 0.5em;
-  text-decoration: none;
-  color: inherit;
-}
-
-nav a.current {
-  font-weight: bold;
-  border-bottom: 3px solid var(--border-color);
-}
-
-nav a:hover {
-  border-bottom: 0.4em solid var(--color-accent);
-  padding-bottom: 0.2em;
-  background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
-}
+} */
 
 
 
