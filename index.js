@@ -13,13 +13,15 @@ async function initLatestProjects() {
     const githubData = await fetchGitHubData('netflyx');
     const profileStats = document.querySelector('#profile-stats');
     if (profileStats) {
-      profileStats.innerHTML = `
+        profileStats.innerHTML = `
           <dl>
-            <dd>Public Repos:${githubData.public_repos}</dd>
-            <dd>Followers:${githubData.followers}</dd>
-            <dd>Following:${githubData.following}</dd>
+            <dt>Followers</dt><dd>${githubData.followers}</dd>
+            <dt>Following</dt><dd>${githubData.following}</dd>
+            <dt>Public Repos</dt><dd>${githubData.public_repos}</dd>
+            <dt>Public Gists</dt><dd>${githubData.public_gists}</dd>
           </dl>
-      `;
+        `;
+      }
     }
-  }
-  initLatestProjects();
+    
+    initLatestProjects();
