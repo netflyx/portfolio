@@ -135,7 +135,6 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid var(--border-color);
 }
 
-/* GitHub stats styling */
 #profile-stats {
   margin-top: 3em;
   margin-bottom: 3em;
@@ -144,7 +143,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #profile-stats dl {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Four equal columns */
+  grid-template-columns: repeat(4, 1fr);
   gap: 1em;
   margin: 0 auto;
   max-width: 800px;
@@ -156,13 +155,19 @@ h1, h2, h3, h4, h5, h6 {
   color: oklch(50% 10% 250);
   text-transform: uppercase;
   font-size: 0.875rem;
-  grid-row: 1; /* All dt’s on first row */
+  grid-row: 1;
 }
 
 #profile-stats dd {
   font-size: 2rem;
   margin: 0;
-  grid-row: 2; /* All dd’s on second row */
+  grid-row: 2;
+}
+
+#projects-pie-plot {
+  max-width: 20em;
+  margin-block: 2em;
+  overflow: visible;
 }
 
 
