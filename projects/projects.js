@@ -14,8 +14,8 @@ async function initProjects() {
 initProjects();
 
 
-let data = [1, 2];
-let colors = ['gold', 'purple'];
+let data = [1, 2, 3, 4, 5, 5];
+let colors = d3.scaleOrdinal(d3.schemeTableau10);
 
 let arcGenerator = d3.arc()
   .innerRadius(0)
@@ -31,7 +31,7 @@ const svg = d3.select("#projects-pie-plot");
 arcs.forEach((arc, idx) => {
   svg.append("path")
     .attr("d", arc)
-    .attr("fill", colors[idx]);
+    .attr("fill", colors(idx));
 });
 
 
