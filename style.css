@@ -170,6 +170,15 @@ h1, h2, h3, h4, h5, h6 {
   overflow: visible;
 }
 
+#projects-pie-plot path {
+  transition: opacity 300ms, transform 300ms;
+}
+
+#projects-pie-plot:has(path:hover) path:not(:hover) {
+  opacity: 0.5;
+}
+
+
 .legend {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
