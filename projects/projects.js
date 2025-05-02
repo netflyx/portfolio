@@ -55,19 +55,18 @@ data.forEach((d, idx) => {
 
 let query = '';
 let searchInput = document.querySelector('.searchBar');
-let container = document.querySelector('.projects'); // or whatever your container is
 
 searchInput.addEventListener('input', (event) => {
-  query = event.target.value.toLowerCase();
+  query = event.target.value;
 
-  // Filter projects by title
-  let filteredProjects = projects.filter((project) =>
-    project.title.toLowerCase().includes(query)
-  );
+  let filteredProjects = projects.filter((project) => {
+    let values = Object.values(project).join('\n').toLowerCase();
+    return values.includes(query.toLowerCase());
+  });
 
-  // Clear and re-render
-  container.innerHTML = '';
-  renderProjects(filteredProjects, container);
+  // render filtered results
+  renderProjects(filteredProjects, projectsContainer, 'h2');
 });
+
 
 
