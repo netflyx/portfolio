@@ -53,5 +53,21 @@ data.forEach((d, idx) => {
     .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`); // set the inner html of <li>
 });
 
+let query = '';
+let searchInput = document.querySelector('.searchBar');
+let container = document.querySelector('.projects'); // or whatever your container is
+
+searchInput.addEventListener('input', (event) => {
+  query = event.target.value.toLowerCase();
+
+  // Filter projects by title
+  let filteredProjects = projects.filter((project) =>
+    project.title.toLowerCase().includes(query)
+  );
+
+  // Clear and re-render
+  container.innerHTML = '';
+  renderProjects(filteredProjects, container);
+});
 
 
