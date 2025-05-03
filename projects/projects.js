@@ -65,15 +65,24 @@ function renderPieChart(projectsGiven) {
       .attr("class", i === selectedIndex ? "selected" : null)
       .on("click", () => {
         selectedIndex = selectedIndex === i ? -1 : i;
-
+      
         svg.selectAll("path")
           .attr("class", (_, idx) => idx === selectedIndex ? "selected" : null);
-
+      
         legend.selectAll("li")
           .attr("class", (_, idx) =>
             idx === selectedIndex ? "legend-item selected" : "legend-item"
           );
+      
+        if (selectedIndex === -1) {
+          renderProjects(projectsGiven, projectsContainer, 'h2');
+        } else {
+          const selectedLabel = data[selectedIndex].label;
+          const filtered = projectsGiven.filter(p => p.year === selectedLabel);
+          renderProjects(filtered, projectsContainer, 'h2');
+        }
       });
+      
   });
 
   data.forEach((d, i) => {
@@ -83,14 +92,23 @@ function renderPieChart(projectsGiven) {
       .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`)
       .on("click", () => {
         selectedIndex = selectedIndex === i ? -1 : i;
-
+      
         svg.selectAll("path")
           .attr("class", (_, idx) => idx === selectedIndex ? "selected" : null);
-
+      
         legend.selectAll("li")
           .attr("class", (_, idx) =>
             idx === selectedIndex ? "legend-item selected" : "legend-item"
           );
+      
+        if (selectedIndex === -1) {
+          renderProjects(projectsGiven, projectsContainer, 'h2');
+        } else {
+          const selectedLabel = data[selectedIndex].label;
+          const filtered = projectsGiven.filter(p => p.year === selectedLabel);
+          renderProjects(filtered, projectsContainer, 'h2');
+        }
       });
+      
   });
 }
