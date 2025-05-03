@@ -6,74 +6,73 @@ let selectedIndex = -1;
 let currentQuery = '';
 let currentPieData = [];
 
-async function initProjects() {
-  allProjects = await fetchJSON('../lib/projects.json');
-  updateFilteredView();
-}
-
 const searchInput = document.querySelector('.searchBar');
 const projectsContainer = document.querySelector('.projects');
+const svg = d3.select("#projects-pie-plot");
+const legend = d3.select('.legend');
+
+init();
+
+async function init() {
+  allProjects = await fetchJSON('../lib/projects.json');
+  updateView();
+}
 
 searchInput.addEventListener('input', (event) => {
   currentQuery = event.target.value.toLowerCase();
-  updateFilteredView();
+  updateView();
 });
 
-function updateFilteredView() {
-  const filtered = applyCombinedFilters(allProjects);
+function updateView() {
+  const filtered = applyFilters(allProjects);
   renderProjects(filtered, projectsContainer, 'h2');
   renderPieChart(filtered);
 }
 
-function applyCombinedFilters(projectList) {
-  return projectList.filter(p => {
-    const matchesQuery = Object.values(p).join('\n').toLowerCase().includes(currentQuery);
-    const matchesSelection = selectedIndex === -1 || p.year === currentPieData[selectedIndex].label;
-    return matchesQuery && matchesSelection;
+function applyFilters(projects) {
+  return projects.filter((p) => {
+    const matchQuery = Object.values(p).join('\n').toLowerCase().includes(currentQuery);
+    const matchYear = selectedIndex === -1 || p.year === currentPieData[selectedIndex]?.label;
+    return matchQuery && matchYear;
   });
 }
 
-function renderPieChart(projectsGiven) {
-  const svg = d3.select("#projects-pie-plot");
-  const legend = d3.select('.legend');
-
+function renderPieChart(projects) {
   svg.selectAll("path").remove();
   legend.selectAll("li").remove();
 
-  const rolledData = d3.rollups(
-    projectsGiven,
-    v => v.length,
-    d => d.year
-  );
-
-  const data = rolledData.map(([label, value]) => ({ label, value }));
+  const rolled = d3.rollups(projects, v => v.length, d => d.year);
+  const data = rolled.map(([label, value]) => ({ label, value }));
   currentPieData = data;
 
   const colors = d3.scaleOrdinal(d3.schemeTableau10);
-  const arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
-  const sliceGenerator = d3.pie().value(d => d.value);
-  const arcData = sliceGenerator(data);
+  const arcGen = d3.arc().innerRadius(0).outerRadius(50);
+  const pie = d3.pie().value(d => d.value);
+  const arcs = pie(data);
 
-  arcData.forEach((d, i) => {
-    svg.append("path")
-      .attr("d", arcGenerator(d))
-      .style("--color", colors(i))
-      .style("fill", "var(--color)")
-      .attr("class", i === selectedIndex ? "selected" : null)
-      .on("click", () => {
-        selectedIndex = selectedIndex === i ? -1 : i;
-        updateFilteredView();
-      });
-  });
+  svg.selectAll("path")
+    .data(arcs)
+    .enter()
+    .append("path")
+    .attr("d", arcGen)
+    .style("fill", (_, i) => `var(--color-${i})`)
+    .style("--color", (_, i) => colors(i))
+    .style("fill", "var(--color)")
+    .attr("class", (_, i) => (i === selectedIndex ? "selected" : null))
+    .on("click", (_, i) => {
+      selectedIndex = selectedIndex === i ? -1 : i;
+      updateView();
+    });
 
-  data.forEach((d, i) => {
-    legend.append("li")
-      .attr("style", `--color:${colors(i)}`)
-      .attr("class", i === selectedIndex ? "legend-item selected" : "legend-item")
-      .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`)
-      .on("click", () => {
-        selectedIndex = selectedIndex === i ? -1 : i;
-        updateFilteredView();
-      });
-  });
+  legend.selectAll("li")
+    .data(data)
+    .enter()
+    .append("li")
+    .attr("class", (_, i) => i === selectedIndex ? "legend-item selected" : "legend-item")
+    .style("--color", (_, i) => colors(i))
+    .html((d) => `<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`)
+    .on("click", (_, i) => {
+      selectedIndex = selectedIndex === i ? -1 : i;
+      updateView();
+    });
 }
