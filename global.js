@@ -44,10 +44,9 @@ export async function fetchGitHubData(username) {
 
 let pages = [
     { url: '', title: 'Home' },
-    { url: 'contact/', title: 'Contact' },
     { url: 'projects/', title: 'Projects' },
-    { url: 'cv/', title: 'CV' },
-
+    { url: 'resume/', title: 'Resume' },
+    { url: 'contact/', title: 'Contact' },
     { url: 'https://github.com/netflyx', title: 'GitHub' }
   ];
   
@@ -78,8 +77,8 @@ let pages = [
   
     nav.append(a);
   }
-
-  document.body.insertAdjacentHTML(
+  
+document.body.insertAdjacentHTML(
     'afterbegin',
     `
     <label class="color-scheme">
@@ -93,7 +92,6 @@ let pages = [
     `
   );
 
-  // Get reference to the select element
 let themeSelect = document.getElementById('theme-selector');
 
 if ("colorScheme" in localStorage) {
@@ -102,7 +100,6 @@ if ("colorScheme" in localStorage) {
     themeSelect.value = savedScheme;
   }
   
-  // When the user changes the dropdown, apply and save the new theme
   themeSelect.addEventListener('input', function(event) {
     let newScheme = event.target.value;
     document.documentElement.style.setProperty('color-scheme', newScheme);
