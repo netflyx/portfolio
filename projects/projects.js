@@ -1,31 +1,41 @@
 import { fetchJSON, renderProjects } from '../global.js';
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
 
+let allProjects = await fetchJSON('../lib/projects.json');
 let query = '';
 let selectedIndex = -1;
 
-const projects = await fetchJSON('../lib/projects.json');
 const projectsContainer = document.querySelector('.projects');
 const searchInput = document.querySelector('.searchBar');
+const svg = d3.select('#projects-pie-plot');
+const legend = d3.select('.legend');
 
-renderProjects(projects, projectsContainer, 'h2');
-renderPieChart(projects);
-
-searchInput.addEventListener('change', (event) => {
-  query = event.target.value;
-
-  const filteredProjects = projects.filter((project) => {
-    const values = Object.values(project).join('\n').toLowerCase();
-    return values.includes(query.toLowerCase());
-  });
-
-  renderProjects(filteredProjects, projectsContainer, 'h2');
-  renderPieChart(filteredProjects);
+searchInput.addEventListener('input', (event) => {
+  query = event.target.value.toLowerCase();
+  updateView();
 });
 
-function renderPieChart(projectsGiven) {
+updateView();
+
+function updateView() {
+  const searchFiltered = allProjects.filter(project =>
+    Object.values(project).join('\n').toLowerCase().includes(query)
+  );
+
+  const finalFiltered =
+    selectedIndex === -1
+      ? searchFiltered
+      : searchFiltered.filter(p => p.year === currentData[selectedIndex].label);
+
+  renderProjects(finalFiltered, projectsContainer, 'h2');
+  renderPieChart(searchFiltered);
+}
+
+let currentData = [];
+
+function renderPieChart(projectsToUse) {
   const rolledData = d3.rollups(
-    projectsGiven,
+    projectsToUse,
     (v) => v.length,
     (d) => d.year
   );
@@ -35,58 +45,41 @@ function renderPieChart(projectsGiven) {
     label: year,
   }));
 
+  currentData = data;
+
   const arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
   const sliceGenerator = d3.pie().value((d) => d.value);
   const arcData = sliceGenerator(data);
-  const arcs = arcData.map((d) => arcGenerator(d));
 
   const colors = d3.scaleOrdinal(d3.schemeTableau10);
 
-  const svg = d3.select('#projects-pie-plot');
   svg.selectAll('path').remove();
-
-  const legend = d3.select('.legend');
   legend.selectAll('li').remove();
 
-  arcs.forEach((arc, i) => {
-    svg
-      .append('path')
-      .attr('d', arc)
-      .attr('fill', colors(i))
-      .attr('class', i === selectedIndex ? 'selected' : '')
-      .on('click', () => {
-        selectedIndex = selectedIndex === i ? -1 : i;
+  svg
+    .selectAll('path')
+    .data(arcData)
+    .enter()
+    .append('path')
+    .attr('d', arcGenerator)
+    .style('--color', (_, i) => colors(i))
+    .style('fill', 'var(--color)')
+    .attr('class', (_, i) => (i === selectedIndex ? 'selected' : ''))
+    .on('click', (_, i) => {
+      selectedIndex = selectedIndex === i ? -1 : i;
+      updateView();
+    });
 
-        svg.selectAll('path')
-          .attr('class', (_, idx) => (idx === selectedIndex ? 'selected' : ''));
-
-        legend.selectAll('li')
-          .attr('class', (_, idx) => (
-            idx === selectedIndex ? 'legend-item selected' : 'legend-item'
-          ));
-
-          let searchFiltered = projects.filter((project) => {
-            let values = Object.values(project).join('\n').toLowerCase();
-            return values.includes(query.toLowerCase());
-          });
-
-        if (selectedIndex === -1) {
-            renderProjects(searchFiltered, projectsContainer, 'h2');
-          } else {
-            let selectedYear = data[selectedIndex].label;
-            let finalFiltered = searchFiltered.filter(p => p.year === selectedYear);
-            renderProjects(finalFiltered, projectsContainer, 'h2');
-          }
-      });
-  });
-
-  data.forEach((d, idx) => {
-    legend
-      .append('li')
-      .attr('style', `--color:${colors(idx)}`)
-      .attr('class', idx === selectedIndex ? 'legend-item selected' : 'legend-item')
-      .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`);
-  });
-
-  
+  legend
+    .selectAll('li')
+    .data(data)
+    .enter()
+    .append('li')
+    .attr('style', (_, i) => `--color:${colors(i)}`)
+    .attr('class', (_, i) => (i === selectedIndex ? 'legend-item selected' : 'legend-item'))
+    .html(d => `<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`)
+    .on('click', (_, i) => {
+      selectedIndex = selectedIndex === i ? -1 : i;
+      updateView();
+    });
 }
