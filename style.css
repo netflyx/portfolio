@@ -178,6 +178,32 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.5;
 }
 
+#projects-pie-plot path {
+  transition: opacity 300ms;
+  cursor: pointer;
+}
+
+#projects-pie-plot:has(path:hover) path:not(:hover) {
+  opacity: 0.5;
+}
+
+.selected {
+  --color: oklch(60% 45% 0) !important;
+}
+
+.selected path {
+  fill: var(--color);
+}
+
+.legend-item {
+  transition: 200ms;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-weight: 500;
+}
+
+
 
 .legend {
   display: grid;
@@ -189,13 +215,6 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 0.5em;
   background-color: canvas;
   color: canvastext;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  font-weight: 500;
 }
 
 .swatch {
