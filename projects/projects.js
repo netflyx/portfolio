@@ -3,6 +3,7 @@ import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
 
 let allProjects = [];
 let selectedIndex = -1;
+let currentQuery = '';
 
 async function initProjects() {
   allProjects = await fetchJSON('../lib/projects.json');
@@ -13,8 +14,9 @@ async function initProjects() {
     projectsTitle.textContent = `${allProjects.length} Projects`;
   }
 
-  renderProjects(allProjects, projectsContainer, 'h2');
-  renderPieChart(allProjects);
+  const filtered = applyCombinedFilters(allProjects);
+  renderProjects(filtered, projectsContainer, 'h2');
+  renderPieChart(filtered);
 }
 
 initProjects();
@@ -23,16 +25,29 @@ const searchInput = document.querySelector('.searchBar');
 const projectsContainer = document.querySelector('.projects');
 
 searchInput.addEventListener('input', (event) => {
-  const query = event.target.value.toLowerCase();
-
-  const filteredProjects = allProjects.filter((project) => {
-    let values = Object.values(project).join('\n').toLowerCase();
-    return values.includes(query);
-  });
-
-  renderProjects(filteredProjects, projectsContainer, 'h2');
-  renderPieChart(filteredProjects);
+  currentQuery = event.target.value.toLowerCase();
+  const filtered = applyCombinedFilters(allProjects);
+  renderProjects(filtered, projectsContainer, 'h2');
+  renderPieChart(filtered);
 });
+
+function applyCombinedFilters(projectList) {
+  return projectList.filter(p => {
+    const matchesQuery = Object.values(p).join('\n').toLowerCase().includes(currentQuery);
+    const matchesSelection = selectedIndex === -1 || p.year === getSelectedLabel();
+    return matchesQuery && matchesSelection;
+  });
+}
+
+function getSelectedLabel() {
+  const rolledData = d3.rollups(
+    allProjects,
+    (v) => v.length,
+    (d) => d.year
+  );
+  const data = rolledData.map(([year]) => ({ label: year }));
+  return selectedIndex >= 0 && selectedIndex < data.length ? data[selectedIndex].label : null;
+}
 
 function renderPieChart(projectsGiven) {
   const svg = d3.select("#projects-pie-plot");
@@ -65,22 +80,9 @@ function renderPieChart(projectsGiven) {
       .attr("class", i === selectedIndex ? "selected" : null)
       .on("click", () => {
         selectedIndex = selectedIndex === i ? -1 : i;
-      
-        svg.selectAll("path")
-          .attr("class", (_, idx) => idx === selectedIndex ? "selected" : null);
-      
-        legend.selectAll("li")
-          .attr("class", (_, idx) =>
-            idx === selectedIndex ? "legend-item selected" : "legend-item"
-          );
-      
-        if (selectedIndex === -1) {
-          renderProjects(projectsGiven, projectsContainer, 'h2');
-        } else {
-          const selectedLabel = data[selectedIndex].label;
-          const filtered = projectsGiven.filter(p => p.year === selectedLabel);
-          renderProjects(filtered, projectsContainer, 'h2');
-        }
+        const filtered = applyCombinedFilters(allProjects);
+        renderProjects(filtered, projectsContainer, 'h2');
+        renderPieChart(filtered);
       });
   });
 
@@ -91,22 +93,9 @@ function renderPieChart(projectsGiven) {
       .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`)
       .on("click", () => {
         selectedIndex = selectedIndex === i ? -1 : i;
-      
-        svg.selectAll("path")
-          .attr("class", (_, idx) => idx === selectedIndex ? "selected" : null);
-      
-        legend.selectAll("li")
-          .attr("class", (_, idx) =>
-            idx === selectedIndex ? "legend-item selected" : "legend-item"
-          );
-      
-        if (selectedIndex === -1) {
-          renderProjects(projectsGiven, projectsContainer, 'h2');
-        } else {
-          const selectedLabel = data[selectedIndex].label;
-          const filtered = projectsGiven.filter(p => p.year === selectedLabel);
-          renderProjects(filtered, projectsContainer, 'h2');
-        }
-      });      
+        const filtered = applyCombinedFilters(allProjects);
+        renderProjects(filtered, projectsContainer, 'h2');
+        renderPieChart(filtered);
+      });
   });
 }
