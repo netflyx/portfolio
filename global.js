@@ -46,9 +46,9 @@ export async function fetchGitHubData(username) {
 let pages = [
     { url: '', title: 'Home' },
     { url: 'projects/', title: 'Projects' },
-    { url: 'resume/', title: 'Resume' },
     { url: 'contact/', title: 'Contact' },
-    { url: 'https://github.com/flaviagt', title: 'GitHub' }
+    { url: 'cv.html', title: 'CV' },
+    { url: 'https://github.com/netflyx', title: 'GitHub' }
   ];
   
   let nav = document.createElement('nav');
