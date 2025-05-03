@@ -1,48 +1,28 @@
 :root {
-  --color-accent: oklch(60% 0.25 300);
+  --color-accent: oklch(65% 50% 0);
+  accent-color: var(--color-accent);
 }
+
+html {
+  color-scheme: light dark;
+}
+
 
 body {
-  font: 100%/1.5 system-ui;
-  max-width: 100ch;
-  margin-inline: max(1em, (100% - 100ch) / 2);
-  padding: 0 10px;
-}
+    font: 100%/1.5 system-ui;
+    margin-inline: max(1em, (100% - 100ch) / 2);
+  }
 
-h1 {
-  font-size: 4rem;
-  line-height: 1.1;
-  text-wrap: balance;
-}
-
-h2, h3, h4, h5, h6 {
-  line-height: 1.1;
-  text-wrap: balance;
+nav ul, nav li {
+  display: contents;
 }
 
 nav {
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-bottom: auto;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: oklch(80% 3% 200);
-  border-bottom-color: oklch(50% 10% 200 / 40%);
+  margin-bottom: 1em;
+  
   --border-color: oklch(50% 10% 200 / 40%);
   border-bottom: 1px solid var(--border-color);
-}
-
-nav a.current {
-  border-bottom: 0.4em solid oklch(80% 3% 200);
-  padding-bottom: 0.2em;
-}
-
-nav a:hover {
-  border-bottom: 0.4em solid var(--color-accent);
-  padding-bottom: 0.2em;
-  background-color: oklch(from var(--color-accent) 95% 5% h);
-  background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
 }
 
 nav a {
@@ -53,91 +33,135 @@ nav a {
   padding: 0.5em;
 }
 
+nav a.current {
+  /* border-bottom: 0.4em solid oklch(80% 3% 200); */
+  padding-bottom: 0.2em;
+  font-weight: bold;
+  border-bottom: 3px solid var(--border-color);
+}
+
+nav a:hover {
+  border-bottom: 0.4em solid var(--color-accent);
+  padding-bottom: 0.2em;
+  background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
+}
+
+input,
+textarea,
+button {
+  font: inherit;
+}
+
+input,
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5em;
+}
+
 form {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 1em;
+  gap: 0.5em;
 }
 
 label {
   display: grid;
   grid-template-columns: subgrid;
   grid-column: 1 / -1;
-  gap: 1em;
+}
+
+button {
+  grid-column: 1 / -1;
 }
 
 .projects {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-template-rows: repeat(3, auto);
-  gap: 1em;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2em;
+  margin-top: 2em;
 }
 
-article {
+.projects article {
+  background-color: oklch(98% 0.005 240 / 80%);
+  border: 1px solid oklch(80% 3% 200 / 30%);
+  border-radius: 8px;
+  padding: 1.5em;
+  box-shadow: 0 2px 4px oklch(0% 0% 0% / 10%);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.projects article:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px oklch(0% 0% 0% / 20%);
+}
+
+.projects h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75em;
+  color: var(--color-accent, oklch(65% 50% 0));
+}
+
+.projects img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 1em;
+}
+
+.projects p {
+  font-size: 1rem;
+  color: canvastext;
+}
+
+
+h1 {
+  font-size: 400%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.color-scheme {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  font-size: 0.9em;
+  padding: 0.5em 1em;
+  border-radius: 6px;
+  z-index: 1000;
+  border: 1px solid var(--border-color);
+}
+
+#profile-stats {
+  margin-top: 3em;
+  margin-bottom: 3em;
+  text-align: center;
+}
+
+#profile-stats dl {
   display: grid;
-  grid-template-rows: subgrid;
-  grid-row: span 3;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+  margin: 0 auto;
+  max-width: 800px;
+  font-size: 1.25rem;
 }
 
-article h2 {
-  margin: 0;
+#profile-stats dt {
+  font-weight: 600;
+  color: oklch(50% 10% 250);
+  text-transform: uppercase;
+  font-size: 0.875rem;
   grid-row: 1;
 }
 
-article img {
-  width: 100%;
-  height: auto;
-  grid-row: 2;
-}
-
-article .project-content {
-  grid-row: 3;
-  display: block;
-}
-
-article .project-content p {
-  display: block;
-  margin: 0.5em 0;
-  width: 100%;
-}
-
-article .project-content .year {
-  font-style: italic;
-  color: #555;
-}
-
-.container {
-  display: flex;
-  gap: 1em;
-  align-items: center;
-}
-
-.legend {
-  flex: 1;
-  list-style: none;
-  padding: 0.5em;
+#profile-stats dd {
+  font-size: 2rem;
   margin: 0;
-  margin-block: 2em;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
-  gap: 0.5em;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.3em;
-}
-
-.swatch {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  aspect-ratio: 1 / 1;
-  background-color: var(--color);
-  border-radius: 50%;
+  grid-row: 2;
 }
 
 #projects-pie-plot {
@@ -147,25 +171,78 @@ article .project-content .year {
 }
 
 #projects-pie-plot path {
-  transition: 300ms; /* Smooth transition for opacity */
-  cursor: pointer; /* Indicate clickability */
+  transition: opacity 300ms, transform 300ms;
 }
 
 #projects-pie-plot:has(path:hover) path:not(:hover) {
-  opacity: 0.5; /* Fade out non-hovered wedges */
+  opacity: 0.5;
 }
 
-.unselected {
-  opacity: 0.5; /* Reduce opacity for unclicked wedges when one is selected */
+#projects-pie-plot path {
+  transition: opacity 300ms;
+  cursor: pointer;
 }
 
-/* Removed color change for selected state */
+#projects-pie-plot:has(path:hover) path:not(:hover) {
+  opacity: 0.5;
+}
+
 .selected {
-  /* --color: oklch(60% 45% 0) !important; */ /* Removed */
+  --color: oklch(60% 45% 0) !important;
 }
 
-/* Removed fill override for selected path */
-#projects-pie-plot .selected {
-  /* fill: var(--color); */ /* Removed */
-  opacity: 1; /* Ensure selected wedge stays fully opaque */
+.selected path {
+  fill: var(--color);
 }
+
+.legend-item {
+  transition: 200ms;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-weight: 500;
+}
+
+
+
+.legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+  gap: 1em;
+  margin-top: 1.5em;
+  padding: 1em;
+  border: 1px solid oklch(80% 3% 200 / 30%);
+  border-radius: 0.5em;
+  background-color: canvas;
+  color: canvastext;
+}
+
+.swatch {
+  width: 1em;
+  aspect-ratio: 1 / 1;
+  background-color: var(--color);
+  display: inline-block;
+  border-radius: 0.2em;
+}
+
+.container {
+  display: flex;
+  align-items: center;    
+  justify-content: center;
+  gap: 2em;             
+  flex-wrap: wrap;
+  margin-block: 2em;
+}
+
+.container .legend {
+  flex: 1;
+  min-width: 200px;
+}
+
+
+
+
+
+
+
+
