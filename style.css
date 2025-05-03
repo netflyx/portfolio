@@ -187,12 +187,12 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.5;
 }
 
-.selected {
-  --color: oklch(60% 45% 0) !important;
+.unselected {
+  opacity: 0.5;
 }
 
-.selected path {
-  fill: var(--color);
+#projects-pie-plot .selected {
+  opacity: 1;
 }
 
 .legend-item {
