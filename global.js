@@ -1,4 +1,4 @@
-console.log('IT’S ALIVE!');
+console.log("IT'S ALIVE!");
 
 function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
@@ -79,19 +79,6 @@ let pages = [
     nav.append(a);
   }
   
-document.body.insertAdjacentHTML(
-    'afterbegin',
-    `
-    <label class="color-scheme">
-      Theme:
-      <select id="theme-selector">
-        <option value="light dark">Automatic</option>
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-      </select>
-    </label>
-    `
-  );
 
 let themeSelect = document.getElementById('theme-selector');
 
