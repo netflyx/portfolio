@@ -73,17 +73,19 @@ function renderPieChart(projectsGiven) {
           .attr("class", (_, idx) =>
             idx === selectedIndex ? "legend-item selected" : "legend-item"
           );
+
+          let searchFiltered = projects.filter((project) => {
+            let values = Object.values(project).join('\n').toLowerCase();
+            return values.includes(query.toLowerCase());
+          });
       
           if (selectedIndex === -1) {
-            renderProjects(allProjects, projectsContainer, 'h2');
-            renderPieChart(allProjects);
+            renderProjects(searchFiltered, projectsContainer, 'h2');
           } else {
-            const selectedLabel = data[selectedIndex].label;
-            const filteredProjects = allProjects.filter(p => p.year === selectedLabel);
-            renderProjects(filteredProjects, projectsContainer, 'h2');
-            renderPieChart(filteredProjects);
+            let selectedYear = data[selectedIndex].label;
+            let finalFiltered = searchFiltered.filter(p => p.year === selectedYear);
+            renderProjects(finalFiltered, projectsContainer, 'h2');
           }
-          
           
       });
   });
@@ -104,13 +106,18 @@ function renderPieChart(projectsGiven) {
             idx === selectedIndex ? "legend-item selected" : "legend-item"
           );
       
-        if (selectedIndex === -1) {
-          renderProjects(projectsGiven, projectsContainer, 'h2');
-        } else {
-          const selectedLabel = data[selectedIndex].label;
-          const filtered = projectsGiven.filter(p => p.year === selectedLabel);
-          renderProjects(filtered, projectsContainer, 'h2');
-        }
-      });      
-  });
-}
+          let searchFiltered = projects.filter((project) => {
+            let values = Object.values(project).join('\n').toLowerCase();
+            return values.includes(query.toLowerCase());
+          });
+      
+          if (selectedIndex === -1) {
+            renderProjects(searchFiltered, projectsContainer, 'h2');
+          } else {
+            let selectedYear = data[selectedIndex].label;
+            let finalFiltered = searchFiltered.filter(p => p.year === selectedYear);
+            renderProjects(finalFiltered, projectsContainer, 'h2');
+          }
+          
+        });
+    })};
