@@ -60,7 +60,8 @@ function renderPieChart(projectsGiven) {
   arcData.forEach((d, i) => {
     svg.append("path")
       .attr("d", arcGenerator(d))
-      .attr("fill", colors(i))
+      .style("--color", colors(i))
+      .style("fill", "var(--color)")
       .attr("class", i === selectedIndex ? "selected" : null)
       .on("click", () => {
         selectedIndex = selectedIndex === i ? -1 : i;
