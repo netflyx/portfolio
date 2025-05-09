@@ -395,6 +395,8 @@ function renderScatterPlot(data, commits) {
         updateTooltipVisibility(false);
       });
 
+
+
   // Helper to test if a commit is inside the brush
   function isSelected(sel, d) {
     if (!sel) return false;

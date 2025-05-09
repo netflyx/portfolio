@@ -333,13 +333,14 @@ circle:hover {
 }
 
 @keyframes marching-ants {
-  to { stroke-dashoffset: -8; } /* 5 + 3 */
+  to { stroke-dashoffset: -8; }
 }
 
 /* highlight selected dots */
 circle.selected {
-  fill: #ff6b6b;  /* your bright yellow if you prefer: fill: yellow; */
+  fill: #ff6b6b;
 }
+
 
 
 
