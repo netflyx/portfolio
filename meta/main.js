@@ -216,6 +216,7 @@ async function loadData() {
     depth:    +row.depth,
     length:   +row.length,
     datetime: new Date(row.datetime),
+    type: row.type
   }));
 }
 
@@ -428,8 +429,11 @@ function renderScatterPlot(data, commits) {
   }
 
   // Brush event handler
-  function brushed({selection}) {
-    dots.classed('selected', d => isSelected(selection,d));
+  function brushed(event) {
+    const selection = event.selection;
+    d3.selectAll('circle').classed('selected', d =>
+      isCommitSelected(selection, d)
+    );
     renderSelectionCount(selection);
     renderLanguageBreakdown(selection);
   }
