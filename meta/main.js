@@ -108,6 +108,10 @@ function renderTooltipContent(commit) {
       : '(no time)';
     author.textContent = commit.author || '(no author)';
     lines.textContent = commit.totalLines ?? '(unknown)';
+
+    console.log('TOOLTIP:', commit);
+    document.getElementById('commit-tooltip').style.opacity = 1;
+
   }
   
   
@@ -169,10 +173,10 @@ function renderScatterPlot(data, commits) {
         renderTooltipContent(commit);
         tooltip.style.opacity = 1;
       })
-      
-    .on('mousemove', (event) => {
-        tooltip.style.left = event.clientX + 15 + 'px';
-        tooltip.style.top = event.clientY + 15 + 'px';
+      .on('mousemove', (event) => {
+        const [x, y] = d3.pointer(event);
+        tooltip.style.left = x + 20 + 'px';
+        tooltip.style.top = y + 20 + 'px';
       })
       .on('mouseleave', () => {
         tooltip.style.opacity = 0;

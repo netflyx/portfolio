@@ -306,16 +306,6 @@ dl.info dd {
   margin: 0;
 }
 
-circle {
-  transition: 200ms;
-  transform-origin: center;
-  transform-box: fill-box;
-}
-
-circle:hover {
-  transform: scale(1.5);
-}
-
 
 /* Dot hover animation */
 circle {
