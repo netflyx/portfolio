@@ -241,6 +241,27 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
+.stats {
+  font-family: sans-serif;
+  max-width: 400px;
+  margin: 20px;
+  padding: 10px;
+  border-left: 4px solid #ccc;
+}
+
+.stats dl {
+  margin: 0;
+}
+
+.stats dt {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.stats dd {
+  margin-left: 0;
+  margin-bottom: 5px;
+}
 
 
 
