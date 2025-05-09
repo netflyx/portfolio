@@ -22,17 +22,20 @@ function processCommits(data) {
       let first = lines[0];
       let { author, date, time, timezone, datetime } = first;
 
+      
+
       let ret = {
-        id: commit,
-        url: 'https://github.com/vis-society/lab-7/commit/' + commit,
-        author,
-        date,
-        time,
-        timezone,
-        datetime,
-        hourFrac: datetime.getHours() + datetime.getMinutes() / 60,
-        totalLines: lines.length,
-      };
+            id: commit,
+            url: 'https://github.com/YOUR_REPO/commit/' + commit,
+            author,
+            date,
+            time,
+            timezone,
+            datetime,
+            hourFrac: datetime.getHours() + datetime.getMinutes() / 60,
+            totalLines: lines.length,
+          }
+          
 
       Object.defineProperty(ret, 'lines', {
         value: lines,
@@ -82,26 +85,31 @@ function renderCommitInfo(data, commits) {
 }
 
 function renderTooltipContent(commit) {
+    if (!commit || Object.keys(commit).length === 0) return;
+  
     const link = document.getElementById('commit-link');
     const date = document.getElementById('commit-date');
     const time = document.getElementById('commit-time');
     const author = document.getElementById('commit-author');
     const lines = document.getElementById('commit-lines');
   
-    if (Object.keys(commit).length === 0) return;
-  
-    link.href = commit.url;
-    link.textContent = commit.id;
-    date.textContent = commit.datetime?.toLocaleDateString('en', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
-    time.textContent = commit.datetime?.toLocaleTimeString('en');
-    author.textContent = commit.author;
-    lines.textContent = commit.totalLines;
+    link.href = commit.url || '#';
+    link.textContent = commit.id || '(no ID)';
+    date.textContent = commit.datetime
+      ? commit.datetime.toLocaleDateString('en', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        })
+      : '(no date)';
+    time.textContent = commit.datetime
+      ? commit.datetime.toLocaleTimeString('en')
+      : '(no time)';
+    author.textContent = commit.author || '(no author)';
+    lines.textContent = commit.totalLines ?? '(unknown)';
   }
+  
   
 
 
@@ -159,6 +167,7 @@ function renderScatterPlot(data, commits) {
     .on('mouseenter', (event, commit) => {
         renderTooltipContent(commit);
     })
+    
     .on('mouseleave', () => {
     });
 
