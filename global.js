@@ -48,6 +48,7 @@ let pages = [
     { url: 'projects/', title: 'Projects' },
     { url: 'contact/', title: 'Contact' },
     { url: 'cv.html', title: 'CV' },
+    { url: 'meta/', title: 'Meta' },
     { url: 'https://github.com/netflyx', title: 'GitHub' }
   ];
   
