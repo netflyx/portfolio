@@ -273,6 +273,47 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
+dl.info {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25em 1em;
+  font-family: sans-serif;
+  font-size: 0.9em;
+  margin-top: 1em;
+  background: #f9f9f9;
+  padding: 1em;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+dl.info dt {
+  font-weight: bold;
+  opacity: 0.7;
+  margin: 0;
+}
+
+dl.info dd {
+  margin: 0;
+}
+
+.tooltip {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  z-index: 10;
+}
+
+/* Dot hover animation */
+circle {
+  transition: 200ms;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+circle:hover {
+  transform: scale(1.5);
+}
+
 
 
 
