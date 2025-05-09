@@ -164,12 +164,19 @@ function renderScatterPlot(data, commits) {
     .attr('cy', (d) => yScale(d.hourFrac))
     .attr('r', 5)
     .attr('fill', 'steelblue')
+    
     .on('mouseenter', (event, commit) => {
         renderTooltipContent(commit);
-    })
-    
-    .on('mouseleave', () => {
-    });
+        tooltip.style.opacity = 1;
+      })
+      
+    .on('mousemove', (event) => {
+        tooltip.style.left = event.clientX + 15 + 'px';
+        tooltip.style.top = event.clientY + 15 + 'px';
+      })
+      .on('mouseleave', () => {
+        tooltip.style.opacity = 0;
+      });
 
   
     // X axis
