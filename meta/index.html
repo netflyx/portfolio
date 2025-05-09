@@ -9,25 +9,30 @@
     <h1>Meta</h1>
     <div id="stats"></div>
   
-    <h2>Commits by time of day</h2>
-    <div id="chart"></div>
-
-    <dl id="commit-tooltip" class="info tooltip">
-        <dt>Commit</dt>
-        <dd><a href="" id="commit-link" target="_blank"></a></dd>
+        <!-- placeholder for summary stats -->
+        <div id="stats"></div>
+  
+        <!-- Step 2 scatterplot -->
+        <h2>Commits by time of day</h2>
+        <div id="chart"></div>
       
-        <dt>Date</dt>
-        <dd id="commit-date"></dd>
+        <!-- selection info -->
+        <p id="selection-count">No commits selected</p>
+        <dl id="language-breakdown" class="stats"></dl>
       
-        <dt>Time</dt>
-        <dd id="commit-time"></dd>
-      
-        <dt>Author</dt>
-        <dd id="commit-author"></dd>
-      
-        <dt>Lines Edited</dt>
-        <dd id="commit-lines"></dd>
-      </dl>
+        <!-- Step 3.1: static tooltip -->
+        <dl id="commit-tooltip" class="info tooltip" hidden>
+          <dt>Commit</dt>
+          <dd><a href="" id="commit-link" target="_blank"></a></dd>
+          <dt>Date</dt>
+          <dd id="commit-date"></dd>
+          <dt>Time</dt>
+          <dd id="commit-time"></dd>
+          <dt>Author</dt>
+          <dd id="commit-author"></dd>
+          <dt>Lines Edited</dt>
+          <dd id="commit-lines"></dd>
+        </dl>
       
       
 
@@ -45,3 +50,6 @@
   </body>
   
 </html>
+
+<body>
+  </html>
