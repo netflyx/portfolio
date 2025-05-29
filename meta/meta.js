@@ -331,7 +331,6 @@ function brushed(event) {
 
 /*filter animation*/
 
-
 const timeSlider = document.getElementById('progress-slider');
 const selectedTime = document.getElementById('selectedTime');
 
