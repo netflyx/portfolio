@@ -298,12 +298,21 @@ dl.info dd {
   margin: 0;
 }
 
-dl.info.tooltip {
-  position: fixed;
-  top: 1em;
-  left: 1em;
-  pointer-events: none;
+.tooltip {
+  position: fixed; /* Ensures the tooltip is positioned relative to the viewport */
+  display: none; /* Hidden by default */
+  background-color: var(--card-bg);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 1em;
+  font-size: 0.9em;
+  color: var(--text-color);
+  pointer-events: none; /* Prevents the tooltip from interfering with mouse events */
   z-index: 1000;
+
+  dt {
+    font-weight: bold;
+  }
 }
 
 /* hide when [hidden] unless hovered/focused */
@@ -340,6 +349,134 @@ circle:hover {
 circle.selected {
   fill: #ff6b6b;
 }
+
+/* Style the range slider container */
+#commit-progress {
+  width: 100%;          /* Makes it as long as the container */
+  max-width: 500px;     /* Optional max width */
+  height: 6px;
+  -webkit-appearance: none; /* Remove default browser styling */
+  background: linear-gradient(to right, #4CAF50, #81C784); /* Green gradient */
+  border-radius: 3px;
+  outline: none;
+  margin: 0 1em;
+  cursor: pointer;
+}
+
+/* WebKit (Chrome, Safari) slider thumb */
+#commit-progress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #2E7D32;  /* Dark green */
+  cursor: pointer;
+  box-shadow: 0 0 2px #000;
+}
+
+/* Firefox slider thumb */
+#commit-progress::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #2E7D32;
+  cursor: pointer;
+  box-shadow: 0 0 2px #000;
+}
+
+#files {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+
+  > div {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+  }
+
+  dt {
+    grid-column: 1;
+  }
+
+  dd {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    align-content: start;
+    gap: 0.15em;
+    padding-top: 0.6em;
+    margin-left: 0;
+  }
+  small {
+    font-size: 0.8em;
+    color: #888;
+    display: block;
+  }
+}
+
+.loc {
+  display: flex;
+  width: 0.5em;
+  aspect-ratio: 1;
+  background: var(--color-accent);
+  border-radius: 50%;
+}
+
+#scrolly-1 {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+
+  > * {
+    flex: 1;
+  }
+}
+
+#scatter-story {
+  position: relative;
+}
+
+#scatter-plot {
+  position: sticky;
+  top: 0;
+  left: 0;
+  bottom: auto;
+  height: 50vh;
+}
+
+#commit-stats {
+  margin-top: 3em;
+  margin-bottom: 3em;
+  text-align: center;
+}
+
+#commit-stats dl {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+  margin: 0 auto;
+  max-width: 800px;
+  font-size: 1.25rem;
+}
+
+#commit-stats dt {
+  font-weight: 600;
+  color: oklch(50% 10% 250);
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  grid-row: 1;
+}
+
+#commit-stats dd {
+  font-size: 2rem;
+  margin: 0;
+  grid-row: 2;
+}
+
+
+
 
 
 
