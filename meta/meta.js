@@ -26,7 +26,7 @@ async function loadData() {
         let { author, date, time, timezone, datetime } = first;
         let ret = {
           id: commit,
-          url: 'https://github.com/vdanielb/html-practice/commit/' + commit,
+          url: 'https://github.com/netflyx/portfolio/commit/' + commit,
           author,
           date,
           time,
