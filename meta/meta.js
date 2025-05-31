@@ -41,8 +41,6 @@ async function loadData() {
           enumerable: false,
           writable: false,
           configurable: false,
-          // What other options do we need to set?
-          // Hint: look up configurable, writable, and enumerable
         });
   
         return ret;
@@ -50,10 +48,8 @@ async function loadData() {
   }
 
 function updateCommitInfo(data, commits) {
-  // Clear existing stats
   d3.select('#stats').html('');
   
-  // Filter data to match the commit time range
   const filteredData = data.filter(d => d.datetime <= commitMaxTime);
   
   const card = d3.select('#stats').append('div').attr('class', 'stats-card');
@@ -104,24 +100,20 @@ let commitMaxTime = timeScale.invert(commitProgress);
 updateCommitInfo(data, commits);
 
 function createBrushSelector(svg) {
-  // Define the extent of the brush to match the usable area
   const brush = d3.brush()
     .extent([
-      [xScale.range()[0], yScale.range()[1]], // Top-left corner
-      [xScale.range()[1], yScale.range()[0]], // Bottom-right corner
+      [xScale.range()[0], yScale.range()[1]],
+      [xScale.range()[1], yScale.range()[0]],
     ])
     .on('start brush end', (event) => brushed(event, xScale, yScale));
 
-  // Append the brush to the SVG
   svg.append('g')
     .attr('class', 'brush')
     .call(brush);
 
-  // Raise dots and everything after the overlay
   svg.selectAll('.dots, .overlay ~ *').raise();
 }
 
-// Create SVG and axes only once
 const width = 1000;
 const height = 600;
 const margin = { top: 10, right: 10, bottom: 30, left: 20 };
@@ -142,7 +134,6 @@ if (svg.empty()) {
     .attr('viewBox', `0 0 ${width} ${height}`)
     .style('overflow', 'visible');
 
-  // Axes and gridlines
   svg.append('g').attr('class', 'gridlines').attr('transform', `translate(${usableArea.left}, 0)`);
   svg.append('g').attr('class', 'x-axis').attr('transform', `translate(0, ${usableArea.bottom})`);
   svg.append('g').attr('class', 'y-axis').attr('transform', `translate(${usableArea.left}, 0)`);
@@ -150,7 +141,6 @@ if (svg.empty()) {
 }
 
 function updateScatterPlot(data, filteredCommits) {
-  // Update scales
   xScale = d3
     .scaleTime()
     .domain(d3.extent(filteredCommits, (d) => d.datetime))
@@ -158,26 +148,21 @@ function updateScatterPlot(data, filteredCommits) {
     .nice();
   yScale = d3.scaleLinear().domain([0, 24]).range([usableArea.bottom, usableArea.top]);
 
-  // Update axes and gridlines
   svg.select('.gridlines').call(d3.axisLeft(yScale).tickFormat('').tickSize(-usableArea.width));
   svg.select('.x-axis').call(d3.axisBottom(xScale));
   svg.select('.y-axis').call(d3.axisLeft(yScale).tickFormat((d) => String(d % 24).padStart(2, '0') + ':00'));
 
-  // Clear and re-add brush
   svg.selectAll('.brush').remove();
   createBrushSelector(svg);
 
-  // Prepare data
   const sortedCommits = d3.sort(filteredCommits, (d) => -d.totalLines);
   const [minLines, maxLines] = d3.extent(filteredCommits, (d) => d.totalLines);
   const rScale = d3.scaleSqrt().domain([minLines, maxLines]).range([2, 30]);
 
-  // Data join for circles
   const dots = svg.select('.dots');
   const circles = dots.selectAll('circle')
     .data(sortedCommits, d => d.id);
 
-  // EXIT
   circles.exit()
     .transition()
     .duration(150)
@@ -185,7 +170,6 @@ function updateScatterPlot(data, filteredCommits) {
     .attr('opacity', 0)
     .remove();
 
-  // UPDATE
   circles.transition()
     .duration(150)
     .attr('cx', d => xScale(d.datetime))
@@ -194,7 +178,6 @@ function updateScatterPlot(data, filteredCommits) {
     .attr('opacity', 0.7)
     .attr('fill', 'steelblue');
 
-  // ENTER
   circles.enter()
     .append('circle')
     .attr('cx', d => xScale(d.datetime))
@@ -298,14 +281,12 @@ function renderLanguageBreakdown(selection) {
   const requiredCommits = selectedCommits.length ? selectedCommits : commits;
   const lines = requiredCommits.flatMap((d) => d.lines);
 
-  // Use d3.rollup to count lines per language
   const breakdown = d3.rollup(
     lines,
     (v) => v.length,
     (d) => d.type,
   );
 
-  // Update DOM with breakdown
   container.innerHTML = '';
 
   for (const [language, count] of breakdown) {
@@ -339,12 +320,12 @@ function filterCommitsByTime() {
 }
 
 function updateTimeDisplay() {
-  commitProgress = Number(timeSlider.value); // Get slider value
-  commitMaxTime = timeScale.invert(commitProgress); // Update commitMaxTime based on slider value
+  commitProgress = Number(timeSlider.value);
+  commitMaxTime = timeScale.invert(commitProgress);
   selectedTime.textContent = commitMaxTime.toLocaleString();
-  filterCommitsByTime(); // filters by time and assign to some top-level variable.
+  filterCommitsByTime();
   updateScatterPlot(data, filteredCommits);
-  updateCommitInfo(data, filteredCommits); // Update commit info with filtered data
+  updateCommitInfo(data, filteredCommits);
 }
 
 // timeSlider.addEventListener('input', updateTimeDisplay);
@@ -371,7 +352,7 @@ function updateFileDisplay(filteredCommits) {
     .selectAll('div')
     .data(files, (d) => d.name)
     .join(
-      // This code only runs when the div is initially rendered
+
       (enter) =>
         enter.append('div').call((div) => {
           div.append('dt').append('code');
